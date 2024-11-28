@@ -1,0 +1,32 @@
+.blog-table {
+    width: 100%;
+}
+
+.user-blogs {
+    width: 100%;
+}
+
+.blog-title {
+    font-family: 'Roboto', sans-serif;
+}
+
+.edit-btn {
+    cursor: pointer;
+    padding: 3px;
+    font-size: 24px;
+    pointer-events: all;
+    z-index: 2;
+
+}
+
+.delete-btn {
+    cursor: pointer;
+    padding: 3px;
+    font-size: 24px;
+    pointer-events: all;
+    z-index: 2;
+}
+
+h4 {
+    color: #553D67;
+}

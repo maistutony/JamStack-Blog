@@ -1,0 +1,1 @@
+To navigate to a user page "/users/id"  you need to be authenticated then the user id from the JWT is used used to fetch the users data frm the server

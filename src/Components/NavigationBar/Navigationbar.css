@@ -1,0 +1,30 @@
+.dropdown {
+    border-radius: 50px;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 24px;
+    margin: auto 32px;
+}
+
+.nav-link {
+    font-size: 18px;
+}
+
+.navigation {
+    width: 100%;
+    justify-content: end;
+    margin-right: 48px;
+    color: white !important;
+}
+
+.bg-body-tertiary {
+    background-color: #2F2FA2;
+
+}
+
+.search-input{
+    border-radius: 30px;
+    padding:2px 16px;
+}

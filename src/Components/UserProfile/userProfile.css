@@ -1,0 +1,17 @@
+.userCard {
+    width: 400px;
+    display: flex;
+    margin: 16px;
+}
+
+.cardBackground {
+    width: 100%;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+}
+
+.card-image{
+    border-radius: 50px;
+    background-color: blue;
+}

@@ -1,0 +1,113 @@
+.hero-section {
+    padding: 16px;
+    background-color: #2F2FA2;
+}
+
+.blog-card {
+    background-color: #2F2FA2;
+}
+
+.landing-image {
+    width: 100%;
+    height: 70vh;
+}
+
+.main-card {
+    height: 100%;
+}
+
+.readmoreBtn {
+    border-radius: 30px;
+    background-color: #F64C72;
+    margin-bottom: 15px;
+    font-size: 14px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.readmoreBtn:hover {
+    background-color: #ffffff;
+    color: #F64C72;
+}
+
+.trending {
+    height: 100%;
+}
+
+.trending-post {
+    font-size: 14px;
+    background-color: #2F2FA2;
+    outline: 0px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.trending-title {
+    text-decoration: none;
+    cursor: pointer;
+    color: #ced0dc;
+    font-size: 18px;
+}
+
+.trending-title:hover {
+    color: #ffffff;
+}
+
+.trending-description {
+    color: #99738E;
+}
+
+.landing-page-title {
+    font-size: 32px;
+    text-decoration: none;
+    color: aqua;
+    font-family: 'Roboto', sans-serif;
+}
+
+.landing-page-title:hover {
+    font-size: 32px;
+    color: aqua;
+}
+
+.recent-headline {
+    padding-top: 40px;
+    font-weight: 500;
+    color: #99738E;
+}
+
+.recent-title {
+    font-family: 'Roboto', sans-serif;
+}
+
+.category-recent {
+    color: #99738E;
+}
+
+.pagination-div {
+    position: relative;
+    background-color: #ffffff;
+}
+
+
+
+/* Custom styling for active pagination item */
+.custom-pagination {
+    margin-top: 16px;
+}
+
+.custom-pagination .page-item.active .page-link {
+    background-color: #F64C72;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.custom-pagination .page-item .page-link {
+    color: #F64C72;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+    color: #aaa;
+}
