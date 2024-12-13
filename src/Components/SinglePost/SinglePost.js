@@ -7,8 +7,10 @@ function SinglePost() {
     const { id } = useParams()
     const [data,setData] =useState()
     async function getData() {
+      const siteUrl = process.env.NETLIFY_SITE_URL || "http://localhost:8888";  // Default to localhost in development
+
         const response = await axios.get(
-          `http://localhost:8888/posts/getposts/${id}`,
+          `${siteUrl}/posts/getposts/${id}`,
           {
             headers: {
               "content-type": "application/json",
