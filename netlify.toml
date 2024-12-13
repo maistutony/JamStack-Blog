@@ -1,19 +1,10 @@
 [build]
   command = "npm run build"
-  publish = "build"
-
-[[redirects]]
-  from = "/api/*"
-  to = "/."
-  status = 200
-
-[[plugins]]
-  package = "@netlify/plugin-functions-install-core"
-
-[functions]
-  directory = "netlify/functions"
-
+  functions = "netlify/functions"
   [dev]
-  command = "npm run dev"
-  publish = "dist"
-
+  functions = "netlify/functions"
+  [[redirects]]
+ from = "/posts/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true

@@ -8,7 +8,7 @@ function SinglePost() {
     const [data,setData] =useState()
     async function getData() {
         const response = await axios.get(
-          `http://localhost:5000/posts/${id}`,
+          `http://localhost:8888/posts/getposts/${id}`,
           {
             headers: {
               "content-type": "application/json",

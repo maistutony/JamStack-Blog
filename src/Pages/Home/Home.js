@@ -23,7 +23,7 @@ function Home() {
   //fetching all blog posts
   async function fetchPosts() {
     try {
-      const response = await axios.get("http://localhost:5000/posts", {
+      const response = await axios.get("http://localhost:8888/posts/getposts", {
         headers: {
           "Content-Type": "application/json",
         },
