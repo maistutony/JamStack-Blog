@@ -1,8 +1,9 @@
 [build]
-  command = "npm run build"
   functions = "netlify/functions"
+
   [dev]
   functions = "netlify/functions"
+  
   [[redirects]]
  from = "/posts/*"
   to = "/.netlify/functions/:splat"
