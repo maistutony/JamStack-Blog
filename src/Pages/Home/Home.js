@@ -22,8 +22,8 @@ function Home() {
   };
   //fetching all blog posts
   async function fetchPosts() {
-    const siteUrl = process.env.NETLIFY_SITE_URL || "http://localhost:8888";  // Default to localhost in development
-
+    const siteUrl = process.env.NETLIFY_SITE_URL;  // Default to localhost in development
+  console.log(siteUrl)
     try {
       const response = await axios.get(`${siteUrl}/posts/getposts`, {
         headers: {
