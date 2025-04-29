@@ -22,10 +22,9 @@ function Home() {
   };
   //fetching all blog posts
   async function fetchPosts() {
-    const siteUrl = process.env.NETLIFY_SITE_URL;  // Default to localhost in development
-  console.log(siteUrl)
+    const siteUrl = "http://localhost:8888/.netlify/functions" ;  // Default to localhost in development
     try {
-      const response = await axios.get(`${siteUrl}/posts/getposts`, {
+      const response = await axios.get(`${siteUrl}/getposts`, {
         headers: {
           "Content-Type": "application/json",
         },

@@ -9,7 +9,7 @@ function Culture() {
   async function fetchPosts(category) {
     try {
       const response = await axios.get(
-        `http://localhost:5000/post/${category}`,
+        `http://localhost:8888/.netlify/functions/getCategory/${category}`,
         {
            cancelToken: source.token,
           headers: {
@@ -17,11 +17,11 @@ function Culture() {
           },
         },
       );
-      if (response.status===200 && typeof response.data === "object" && response.data !== null) {
+      if (response.status===200 && response.data !== null) {
         setcultureBlogs(response.data);
         return response.data;
       } else {
-        console.log("server problem");
+        console.log(response.data.message);
       }
     } catch (error) {
       if (axios.isCancel(error)) {

@@ -9,18 +9,18 @@ function Technology() {
        async function fetchPosts(category) {
          try {
            const response = await axios.get(
-             `http://localhost:5000/post/${category}`,
+             `http://localhost:8888/.netlify/functions/getCategory/${category}`,
              {
                headers: {
                  "Content-Type": "application/json",
                },
              },
            );
-           if (typeof response.data === "object" && response.data !== null) {
+           if (response.status === 200 && response.data !== null) {
              settechnologyBlogs(response.data);
              return response.data;
            } else {
-             console.log("server problem");
+             console.log(response.data.message);
            }
          } catch (error) {
              if (error.message.includes("Network Error")) {
