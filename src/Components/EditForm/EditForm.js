@@ -36,12 +36,13 @@ const EditForm = () => {
   async function submitData(payload) {
     try {
       const response = await axios.put(
-        `http://localhost:5000/posts/${postId}`,
+        `http://localhost:8888/.netlify/functions/handlePosts/${postId}`,
         payload,
         {
           headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${userData.token}`,
+            "x-request-id":userData.user._id,
           },
         },
       );

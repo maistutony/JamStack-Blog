@@ -18,16 +18,17 @@ const BlogForm = () => {
   } = useForm({
     mode: "onBlur",
   });
-
  async function submitData(payload) {
    try {
-     const response = await axios.post("http://localhost:5000/posts", payload, {
+    console.log(userData.user._id);
+     const response = await axios.post(`http://localhost:8888/.netlify/functions/handlePosts`, payload, {
        headers: {
          "Content-Type": "application/json",
          "authorization": `Bearer ${userData.token}`,
+         'X-Request-ID': userData.user._id,
        },
      });
-     console.log(response.data);
+    
      setuserData((prevUserData) => ({
        ...prevUserData,
        userPosts: prevUserData.userPosts

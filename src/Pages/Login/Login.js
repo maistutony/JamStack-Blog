@@ -23,7 +23,7 @@ const Login = () => {
   async function submitData(payload) {
     try {
       const response = await axios.post(
-        "http://localhost:5000/login",
+        "http://localhost:8888/.netlify/functions/login",
         payload,
         {
           Headers: {
@@ -32,8 +32,9 @@ const Login = () => {
         },
       );
       const responseData = response.data;
-      if (typeof responseData === "object" && response.status === 200) {
-       console.log(responseData)
+      console.log(responseData)
+      if (response.status === 200) {
+      
         setuserData(responseData);
         setisAuthenticated(true);
         navigate("/dashboard");

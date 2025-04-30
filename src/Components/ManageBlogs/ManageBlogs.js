@@ -14,10 +14,11 @@ const ManageBlogs = () => {
 
   async function deletePost(id) {
     try {
-      const response = await axios.delete(`http://localhost:5000/posts/${id}`, {
+      const response = await axios.delete(`http://localhost:8888/.netlify/functions/handlePosts/${id}`, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${userData.token}`,
+          "x-request-id":userData.user._id,
         },
       });
       if (response.status === 200 && typeof response.data === "object") {

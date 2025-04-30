@@ -20,7 +20,7 @@ const {isRegistered,setisRegistered}=useContext(isAuthenticatedContext)
   async function submitData(payload) {
     try {
       const response = await axios.post(
-        "http://localhost:8888/.netlify/functions/authentication",
+        "http://localhost:8888/.netlify/functions/registration",
         payload,
         {
           headers: {
@@ -29,10 +29,16 @@ const {isRegistered,setisRegistered}=useContext(isAuthenticatedContext)
           },
         },
       );
-      if (response.data === "successfully registered" && response.status === 200) {
+      if (response.status === 200) {
         setisRegistered(true);
         alert("successfully registered")
         navigate("/login")
+       }
+       if(response.status===400){
+        console.log("email and password should be filled")
+       }
+       if(response.status===409){
+        console.log(response.message)
        }
     } catch (error) {
       console.log("network error");
