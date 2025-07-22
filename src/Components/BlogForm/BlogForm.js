@@ -1,14 +1,15 @@
-import React,{useContext} from "react";
+import React, { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useForm, Controller } from "react-hook-form";
 import Select from "react-select";
 import Sidebar from "../Sidebar/Sidebar";
 import { UserContext } from "../../Context/Context";
 import axios from "axios";
-import "./blogForm.css"
+import "./blogForm.css";
 
 const BlogForm = () => {
-  const {userData,setuserData}= useContext(UserContext)
+  const [notice, setNotice] = useState(false);
+  const { userData, setuserData } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -18,45 +19,60 @@ const BlogForm = () => {
   } = useForm({
     mode: "onBlur",
   });
- async function submitData(payload) {
-   try {
-    console.log(userData.user._id);
-     const response = await axios.post(`http://localhost:8888/.netlify/functions/handlePosts`, payload, {
-       headers: {
-         "Content-Type": "application/json",
-         "authorization": `Bearer ${userData.token}`,
-         'X-Request-ID': userData.user._id,
-       },
-     });
-    
-     setuserData((prevUserData) => ({
-       ...prevUserData,
-       userPosts: prevUserData.userPosts
-         ? [...prevUserData.userPosts, response.data]
-         : [response.data],
-     }));
-     return response.data;
-   } catch (error) {
-     console.log(error.message);
-   }
- }
+  async function submitData(payload) {
+    try {
+      console.log(userData.user._id);
+      const response = await axios.post(
+        `http://localhost:8888/.netlify/functions/handlePosts`,
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${userData.token}`,
+            "X-Request-ID": userData.user._id,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setuserData((prevUserData) => {
+          const updatedPosts = prevUserData.userPosts
+            ? [...prevUserData.userPosts, response.data.postToSave]
+            : [response.data.postToSave];
+
+          setNotice(true);
+          // Hide notification after 1 second
+          setTimeout(() => {
+            setNotice(false);
+          }, 2000);
+          return {
+            ...prevUserData,
+            userPosts: updatedPosts,
+          };
+        });
+      }
+
+      return response.data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   const handleRegistration = (data) => {
-   const upadatedCategory =data.category.value
-    const payload = { ...data, category: upadatedCategory }
-    submitData(payload)
-    reset()
+    const upadatedCategory = data.category.value;
+    const payload = { ...data, category: upadatedCategory };
+    submitData(payload);
+    reset();
   };
   const handleError = (errors) => {
     console.log(errors);
   };
 
-    const registerOptions = {
-      title: { required: "title is required" },
-      imageUrl: {  },
-      description: { required: "description is required" },
-      content: { required: "content is required" },
-    };
+  const registerOptions = {
+    title: { required: "title is required" },
+    imageUrl: {},
+    description: { required: "description is required" },
+    content: { required: "content is required" },
+  };
   const category = [
     { value: "Technology", label: "Technology" },
     { value: "Religion", label: "Religion" },
@@ -64,6 +80,24 @@ const BlogForm = () => {
   ];
 
   return (
+    <div>
+    {notice && (
+        <div style={{
+          position: 'fixed',
+          top: '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          backgroundColor: '#4caf50',
+          color: 'white',
+          padding: '12px 24px',
+          borderRadius: '6px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+          zIndex: 9999,
+          transition: 'opacity 0.5s ease-in-out',
+        }}>
+        post published
+      </div>
+    )}
     <div className="d-flex">
       <Sidebar />
       <div className="form-div d-flex justify-content-center align-items-center registration-form">
@@ -92,11 +126,7 @@ const BlogForm = () => {
               defaultValue={null}
               rules={{ required: true }}
               render={({ field }) => (
-                <Select
-                  className="form-input"
-                  {...field}
-                  options={category}
-                />
+                <Select className="form-input" {...field} options={category} />
               )}
             />
             {errors.category && (
@@ -145,6 +175,7 @@ const BlogForm = () => {
           </Button>
         </Form>
       </div>
+    </div>
     </div>
   );
 };

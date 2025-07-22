@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { isAuthenticatedContext } from "../../Context/Context";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button} from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,9 +8,10 @@ import "./login.css";
 import { UserContext } from "../../Context/Context";
 
 const Login = () => {
+  const [wrongPass, setWrongPass] = useState("");
   const navigate = useNavigate();
   const { setisAuthenticated } = useContext(isAuthenticatedContext);
-  const { setuserData } = useContext(UserContext);
+  const {setuserData } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -29,12 +30,11 @@ const Login = () => {
           Headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
       const responseData = response.data;
-      console.log(responseData)
+
       if (response.status === 200) {
-      
         setuserData(responseData);
         setisAuthenticated(true);
         navigate("/dashboard");
@@ -45,7 +45,7 @@ const Login = () => {
       if (error.message.includes("Network Error")) {
         console.log("Network Error: Please check your internet connection.");
       } else {
-        console.log(error.response.data);
+        console.log(error.response.data.message);
       }
     }
   }
@@ -70,6 +70,7 @@ const Login = () => {
   };
 
   return (
+    
     <div className="w-100 d-flex col-md-8 flex-column justify-content-center align-items-center registration-form">
       <h4 className="login-h4">Login Form</h4>
       <Form
@@ -119,6 +120,7 @@ const Login = () => {
         </div>
       </Form>
     </div>
+   
   );
 };
 

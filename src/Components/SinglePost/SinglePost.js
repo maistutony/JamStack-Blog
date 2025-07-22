@@ -7,11 +7,11 @@ function SinglePost() {
     const { id } = useParams()
     const [data,setData] =useState()
     async function getData() {
-      const siteUrl = process.env.NETLIFY_SITE_URL;  // Default to localhost in development
-      console.log(siteUrl)
+      const siteUrl ="http://localhost:8888/.netlify/functions" ;  // Default to localhost in development
+      console.log(id)
 
         const response = await axios.get(
-          `${siteUrl}/posts/getposts/${id}`,
+          `${siteUrl}/getposts/${id}`,
           {
             headers: {
               "content-type": "application/json",
@@ -25,6 +25,7 @@ function SinglePost() {
     useEffect(() => {
         getData();
     },[])
+    console.log(data.user)
   return (
     <Container>
           {data && <Row className="main-area">
@@ -36,7 +37,7 @@ function SinglePost() {
                   alt="blog-image"
                   fluid
               />
-              <div className="author">author</div>
+              <div className="author">{data.user.userName}</div>
               <p className="post-content">{data.content}</p>
           </Row>
           }

@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const Posts = require("../functions/models/postsModel");
+const user=require("../functions/models/userModel")
 
 async function handleDeleteRequest(event) {
   // Split the path and get the last segment
@@ -50,6 +51,7 @@ async function handlePostRequest(event) {
     const { title, category, content, imageUrl, description } = JSON.parse(
       event.body
     );
+    const author = await user.findById(userId);
     if (!title && content && category) {
       return {
         statusCode: 401,
@@ -64,14 +66,14 @@ async function handlePostRequest(event) {
       content,
       imageUrl,
       description,
-      author: userId,
+      author,
       timePublished: new Date().toLocaleString(),
     });
     const postSaved = await postToSave.save();
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: "POST request received",
+        message: "post published",
         postToSave,
       }),
     };
