@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Row, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 
 function Culture() {
-    const source = axios.CancelToken.source();
+  const source = axios.CancelToken.source();
   const [cultureBlogs, setcultureBlogs] = useState(null);
   async function fetchPosts(category) {
     try {
       const response = await axios.get(
-        `http://localhost:8888/.netlify/functions/getCategory/${category}`,
+        `https://ttjamstackblog.netlify.app/.netlify/functions/getCategory/${category}`,
         {
-           cancelToken: source.token,
+          cancelToken: source.token,
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
-      if (response.status===200 && response.data !== null) {
+      if (response.status === 200 && response.data !== null) {
         setcultureBlogs(response.data);
         return response.data;
       } else {
@@ -32,9 +32,9 @@ function Culture() {
     }
   }
   // set timeout to cancel the request
-   setTimeout(() => {
-     source.cancel("Request timed out");
-   }, 5000);
+  setTimeout(() => {
+    source.cancel("Request timed out");
+  }, 5000);
   useEffect(() => {
     fetchPosts("Culture");
   }, []);
@@ -53,15 +53,9 @@ function Culture() {
               <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
                 <Card.Text>{post.description.slice(0, 150)}...</Card.Text>
-                <Button
-                  className="readmoreBtn"
-                  onClick={() =>
-                    navigate("/fullBlog", { state: { postData: post } })
-                  }
-                  variant="primary"
-                >
-                  read more
-                </Button>
+                <Link to={`/fullBlog/${post._id}`} className="read-more">
+                  read more ...
+                </Link>
               </Card.Body>
             </Card>
           ))

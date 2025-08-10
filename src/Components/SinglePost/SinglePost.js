@@ -1,48 +1,69 @@
-import React, { useEffect,useState } from 'react'
-import axios from 'axios'
-import { useParams } from 'react-router-dom'
-import { Row,Container,Image } from 'react-bootstrap'
+import React, { useContext } from "react";
+import axios from "axios";
+import "./singlePost.css"
+import { useParams } from "react-router-dom";
+import {Card, Button,Form } from "react-bootstrap";
+import { AllPostsContext } from "../../Context/Context";
+import { useForm } from "react-hook-form";
 
-function SinglePost() { 
-    const { id } = useParams()
-    const [data,setData] =useState()
-    async function getData() {
-      const siteUrl ="http://localhost:8888/.netlify/functions" ;  // Default to localhost in development
-      console.log(id)
+function SinglePost() {
+  const { id } = useParams();
+  const { allPosts, setallPosts } = useContext(AllPostsContext);
 
-        const response = await axios.get(
-          `${siteUrl}/getposts/${id}`,
-          {
-            headers: {
-              "content-type": "application/json",
-            },
-          },
-        );
-        if (response.status === 200) {
-           setData(response.data[0])
-        }
-    } 
-    useEffect(() => {
-        getData();
-    },[])
-    console.log(data.user)
-  return (
-    <Container>
-          {data && <Row className="main-area">
-              <div className="category">{data.category}</div>
-              <h3 className="blog-headline">{data.title}</h3>
-              <Image
-                  className="blog-image"
-                  src={data.imageUrl}
-                  alt="blog-image"
-                  fluid
-              />
-              <div className="author">{data.user.userName}</div>
-              <p className="post-content">{data.content}</p>
-          </Row>
-          }
-    </Container>
-  );
+  const blog = allPosts.filter((item) => item._id == id);
+    const {
+      register,
+      handleSubmit,
+      reset,
+      formState: { errors },
+    } = useForm({
+      mode: "onBlur",
+    });
+  const registerOptions = {
+    comment: { required: "type a comment" }
+  };
+  const handleComment = (data) => {
+    console.log('comment submitted:', data);
+  };
+  const handleError = (errors) => {
+    console.log(errors);
+  };
+  return(
+    <Card style={{display:"flex",alignItems:"center",padding:"8px"}}>
+        <Card.Title style={{color:"blue" }}>{blog[0].title}</Card.Title>
+    <Card.Img variant="top" src={blog[0].imageUrl} style={{width:"75%" }} />
+    <Card.Body>
+      <Card.Text style={{color:"gray"}}>
+        {blog[0].content}
+      </Card.Text>
+      <Card.Text style={{color:"green"}}>
+       Category :{blog[0].category} | |  <span>Author: {blog[0].author}</span>  
+      </Card.Text>
+      <Form
+        className="comment-form text-dark w-50"
+        onSubmit={handleSubmit(handleComment, handleError)}
+      >
+         <label className="comment-lebel" htmlFor="comments">Have a comment about the blog post it here</label>
+        <Form.Group controlId="username">
+          <Form.Control
+            as="textarea"
+            rows={5} // ✅ Controls height
+           className="comment-input"
+            type="text"
+            name="username"
+            {...register("username", registerOptions.username)}
+          />
+          {errors.username && errors.username.type === "required" && (
+            <p className="errorMsg">please type a comment</p>
+          )}
+        </Form.Group>
+        <Button className="comment-button" variant="primary" type="submit">
+          comment
+        </Button>
+      </Form>
+    </Card.Body>
+  </Card>
+  )
 }
 
-export default SinglePost
+export default SinglePost;

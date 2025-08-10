@@ -23,7 +23,7 @@ const BlogForm = () => {
     try {
       console.log(userData.user._id);
       const response = await axios.post(
-        `http://localhost:8888/.netlify/functions/handlePosts`,
+        `http://ttjamstackblog.netlify.app/.netlify/functions/handlePosts`,
         payload,
         {
           headers: {

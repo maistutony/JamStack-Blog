@@ -1,38 +1,38 @@
-import React, { useEffect,useState } from "react";
-import { Container,Card,Row,Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Container, Card, Row, Button } from "react-bootstrap";
+import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 
 function Religion() {
   const [religionBlogs, setreligionBlogs] = useState();
-async function fetchPosts(category) {
-  try {
-    const response = await axios.get(
-      `http://localhost:8888/.netlify/functions/getCategory/${category}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-      if (response.status===200 && response.data !== null) {
+  async function fetchPosts(category) {
+    try {
+      const response = await axios.get(
+        `https://ttjamstackblog.netlify.app/.netlify/functions/getCategory/${category}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200 && response.data !== null) {
         setreligionBlogs(response.data);
         return response.data;
       } else {
         console.log(response.data.message);
       }
-  } catch (error) {
-    if (error.message.includes("Network Error")) {
+    } catch (error) {
+      if (error.message.includes("Network Error")) {
         console.log("Network Error: Please check your internet connection.");
       } else {
-        console.log(error.response.data)
+        console.log(error.response.data);
       }
     }
   }
   useEffect(() => {
-    fetchPosts("Religion")
-  },[])
-  const navigate = useNavigate()
+    fetchPosts("Religion");
+  }, []);
+  const navigate = useNavigate();
   return (
     <Container>
       <Row className="my-3">
@@ -47,15 +47,9 @@ async function fetchPosts(category) {
               <Card.Body>
                 <Card.Title>{post.title}</Card.Title>
                 <Card.Text>{post.description.slice(0, 150)}...</Card.Text>
-                <Button
-                  className="readmoreBtn"
-                  onClick={() =>
-                    navigate("/fullBlog", { state: { postData: post } })
-                  }
-                  variant="primary"
-                >
-                  read more
-                </Button>
+                <Link to={`/fullBlog/${post._id}`} className="read-more">
+                  read more ...
+                </Link>
               </Card.Body>
             </Card>
           ))

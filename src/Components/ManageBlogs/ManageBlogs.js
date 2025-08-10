@@ -16,7 +16,7 @@ const ManageBlogs = () => {
 
   async function deletePost(id) {
     try {
-      const response = await axios.delete(`http://localhost:8888/.netlify/functions/handlePosts/${id}`, {
+      const response = await axios.delete(`https://ttjamstackblog.netlify.app/.netlify/functions/handlePosts/${id}`, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${userData.token}`,

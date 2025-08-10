@@ -8,6 +8,7 @@ const FullBlogView = () => {
   const location = useLocation();
    const { userData } = useContext(UserContext);
   const postData=location.state.postData
+  console.log(userData)
   const datePart =postData.timePublished.split("T")[0];
   return (
     <Container>

@@ -18,7 +18,7 @@ const Search = () => {
     if (searchQuery) {
       try {
         const response = await axios.get(
-          `http://localhost:5000/search?query=${searchQuery}`,
+          `http://ttjamstackblog.netlify.app/search?query=${searchQuery}`,
         );
         if (response.status === 200) {
           setSearchResults(response.data);

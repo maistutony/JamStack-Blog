@@ -20,7 +20,7 @@ const {isRegistered,setisRegistered}=useContext(isAuthenticatedContext)
   async function submitData(payload) {
     try {
       const response = await axios.post(
-        "http://localhost:8888/.netlify/functions/registration",
+        "https://ttjamstackblog.netlify.app/.netlify/functions/registration",
         payload,
         {
           headers: {

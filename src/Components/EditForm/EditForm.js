@@ -36,7 +36,7 @@ const EditForm = () => {
   async function submitData(payload) {
     try {
       const response = await axios.put(
-        `http://localhost:8888/.netlify/functions/handlePosts/${postId}`,
+        `https://ttjamstackblog.netlify.app/.netlify/functions/handlePosts/${postId}`,
         payload,
         {
           headers: {

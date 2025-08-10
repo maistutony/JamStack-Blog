@@ -9,7 +9,6 @@ function Home() {
   const { allPosts, setallPosts } = useContext(AllPostsContext);
   const [activePage, setActivePage] = useState(1);
   const [loading,setLoading] =useState(true)
- 
   const landingPageData = {
     title: "For climate tech startups, the IRA is starting to pay off",
     category:"technology",
@@ -22,7 +21,7 @@ function Home() {
   };
   //fetching all blog posts
   async function fetchPosts() {
-    const siteUrl = "http://localhost:8888/.netlify/functions" ;  // Default to localhost in development
+    const siteUrl = "https://ttjamstackblog.netlify.app/.netlify/functions" ;  // Default to localhost in development
     try {
       const response = await axios.get(`${siteUrl}/getposts`, {
         headers: {
@@ -153,15 +152,12 @@ function Home() {
                   </Card.Text>
                   <Card.Title className="recent-title">{post.title}</Card.Title>
                   <Card.Text>{post.description.slice(0, 150)}...</Card.Text>
-                  <Button
-                    className="readmoreBtn"
-                    onClick={() =>
-                      navigate("/fullBlog", { state: { postData: post } })
-                    }
-                    variant="primary"
-                  >
-                    read more
-                  </Button>
+                  <Link
+                        to={`/fullBlog/${post._id}`}
+                        className="read-more"
+                      >
+                       read more ...
+                      </Link>
                 </Card.Body>
               </Card>
             ))

@@ -111,3 +111,7 @@
 .custom-pagination .page-item.disabled .page-link {
     color: #aaa;
 }
+.read-more{
+    color: blue;
+    text-decoration: none;
+}

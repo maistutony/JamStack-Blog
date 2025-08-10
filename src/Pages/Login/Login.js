@@ -24,7 +24,7 @@ const Login = () => {
   async function submitData(payload) {
     try {
       const response = await axios.post(
-        "http://localhost:8888/.netlify/functions/login",
+        "https://ttjamstackblog.netlify.app/.netlify/functions/login",
         payload,
         {
           Headers: {
